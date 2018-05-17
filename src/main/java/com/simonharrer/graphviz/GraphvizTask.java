@@ -3,6 +3,8 @@ package com.simonharrer.graphviz;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.function.BiPredicate;
 import java.util.stream.Stream;
 
 import guru.nidi.graphviz.engine.Format;
@@ -13,7 +15,9 @@ import org.gradle.api.tasks.TaskAction;
 
 public class GraphvizTask extends DefaultTask {
 
-    public static final String GRAPHVIZ = "graphviz";
+    private static final String GRAPHVIZ = "graphviz";
+    private static final BiPredicate<Path, BasicFileAttributes> ONLY_DOT_FILES =
+            (path, attributes) -> path.getFileName().toString().endsWith(".dot");
 
     @TaskAction
     public void graphviz() throws Exception {
@@ -29,7 +33,7 @@ public class GraphvizTask extends DefaultTask {
 
         try (Stream<Path> stream = Files.find(sourcePath,
                 Integer.MAX_VALUE,
-                (path, attributes) -> path.getFileName().toString().endsWith(".dot"))) {
+                ONLY_DOT_FILES)) {
             stream.forEach(path -> {
                 String sourceFilename = path.getFileName().toString();
                 String targetFilename = sourceFilename.substring(0, sourceFilename.length() - 4) + ".png";
