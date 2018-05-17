@@ -1,0 +1,10 @@
+
+/.idea/
+/build/
+/.gradle/
+/out
+/examples/noIssues/build/
+/examples/noIssues/.gradle/
+src/main/resources/
+src/test/resources/
+*.iml

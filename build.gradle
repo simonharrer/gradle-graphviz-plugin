@@ -1,0 +1,63 @@
+plugins {
+    id 'com.gradle.build-scan' version '1.13.1'
+    id "java-gradle-plugin"
+    id "com.gradle.plugin-publish" version "0.9.10"
+    id "net.ltgt.errorprone" version "0.0.13"
+    id 'com.github.sherter.google-java-format' version '0.6'
+}
+
+apply plugin: "java"
+
+group 'com.simonharrer'
+version '0.0.1'
+
+googleJavaFormat {
+    toolVersion = '1.5'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.6'
+}
+
+buildScan {
+    licenseAgreementUrl = 'https://gradle.com/terms-of-service'
+    licenseAgree = 'yes'
+}
+
+pluginBundle {
+    website = 'https://github.com/simonharrer/gradle-graphviz-plugin'
+    vcsUrl = 'https://github.com/simonharrer/gradle-graphviz-plugin'
+    description = 'Converts your src/main/graphviz/*.dot to build/graphviz/*.png'
+    tags = ['Graphviz', 'dot']
+
+    plugins {
+        greetingsPlugin {
+            id = 'com.simonharrer.graphviz'
+            displayName = 'Gradle Graphviz plugin'
+        }
+    }
+}
+
+gradlePlugin {
+    plugins {
+        simplePlugin {
+            id = "com.simonharrer.graphviz"
+            implementationClass = "com.simonharrer.graphviz.GraphvizPlugin"
+        }
+    }
+}
+
+compileJava {
+    targetCompatibility = 1.8
+    sourceCompatibility = 1.8
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile 'guru.nidi:graphviz-java:0.5.1'
+
+    testCompile 'junit:junit:4.12'
+}
