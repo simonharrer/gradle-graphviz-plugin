@@ -1,6 +1,6 @@
 # gradle-modernizer-plugin [![Build Status](https://travis-ci.org/simonharrer/gradle-graphviz-plugin.svg?branch=master)](https://travis-ci.org/simonharrer/gradle-modernizer-plugin)
 
-Converts your src/main/graphviz/*.dot to build/graphviz/*.png. It does nothing else.
+Converts your `src/main/graphviz/*.dot` to `build/graphviz/*.png`. It does nothing else.
 
 Uses the great [graphviz-java](https://github.com/nidi3/graphviz-java) library for conversion.
 
